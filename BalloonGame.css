@@ -9,12 +9,10 @@ h1 {
     font-size: 10em;
     font-weight: bold;
     color: #410707;
-    background: linear-gradient(45deg, #00bfff, #0992d6, #200fbf);
     -webkit-background-clip: text;
     background-clip: text;
     text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 50px #ff0040, 0 0 60px #ff0040;
-    position: relative;
-    animation: glow 1.5s infinite alternate, fireAnimation 3s infinite linear;
+    animation: glow 1.5s infinite alternate;
 }
 
 @keyframes glow {
@@ -23,15 +21,6 @@ h1 {
     }
     100% {
         text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff0080, 0 0 50px #ff0080, 0 0 60px #ff0040, 0 0 70px #ff0040;
-    }
-}
-
-@keyframes fireAnimation {
-    0% {
-        background-position: -200% -200%;
-    }
-    100% {
-        background-position: 200% 200%;
     }
 }
 
