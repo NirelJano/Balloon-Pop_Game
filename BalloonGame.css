@@ -1,26 +1,39 @@
+html, body {
+    height: 100%; 
+    overflow: hidden; 
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(195, 212, 12);
+    background-image: url('https://media.canva.com/v2/image-resize/format:PNG/height:238/quality:100/uri:s3%3A%2F%2Fmedia-private.canva.com%2FHM0L0%2FMAGZ8_HM0L0%2F1%2Fp.png/watermark:F/width:550?csig=AAAAAAAAAAAAAAAAAAAAALDTLkUN80wWWoQmEUaEXE3lEQuKBtho9-GqLym1Czmm&exp=1734822948&osig=AAAAAAAAAAAAAAAAAAAAACvI3LKdp0Mzs-47sgyS2MIJv5a4lBHwOM8CBStxR6u-&signer=media-rpc&x-canva-quality=thumbnail_large');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-attachment: fixed; 
     text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
 h1 {
     font-size: 10em;
     font-weight: bold;
-    color: #410707;
+    color: rgb(255, 255, 255);
     -webkit-background-clip: text;
     background-clip: text;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 50px #ff0040, 0 0 60px #ff0040;
+    text-shadow: 0 0 10px #ef7373, 0 0 20px #ef5656, 0 0 30px #eb3434, 0 0 40px #dd1717, 0 0 50px #a20f0f, 0 0 60px #680404;
     animation: glow 1.5s infinite alternate;
 }
 
 @keyframes glow {
     0% {
-        text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff0080, 0 0 20px #ff0080, 0 0 25px #ff0040, 0 0 30px #ff0040;
+        text-shadow: 0 0 5px #ef7373, 0 0 10px #ef5656, 0 0 15px #eb3434, 0 0 20px #dd1717, 0 0 25px #a20f0f, 0 0 30px #680404;
     }
     100% {
-        text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff0080, 0 0 50px #ff0080, 0 0 60px #ff0040, 0 0 70px #ff0040;
+        text-shadow: 0 0 20px #ef7373, 0 0 30px #ef5656, 0 0 40px #eb3434, 0 0 50px #dd1717, 0 0 60px #a20f0f, 0 0 70px #680404;
     }
 }
 
