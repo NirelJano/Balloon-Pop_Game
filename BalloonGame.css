@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(195, 212, 12);
+    text-align: center;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 10em;
+    font-weight: bold;
+    color: #410707;
+    background: linear-gradient(45deg, #00bfff, #0992d6, #200fbf);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 50px #ff0040, 0 0 60px #ff0040;
+    position: relative;
+    animation: glow 1.5s infinite alternate, fireAnimation 3s infinite linear;
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff0080, 0 0 20px #ff0080, 0 0 25px #ff0040, 0 0 30px #ff0040;
+    }
+    100% {
+        text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff0080, 0 0 50px #ff0080, 0 0 60px #ff0040, 0 0 70px #ff0040;
+    }
+}
+
+@keyframes fireAnimation {
+    0% {
+        background-position: -200% -200%;
+    }
+    100% {
+        background-position: 200% 200%;
+    }
+}
+
+
+#StartButton {
+    background-color:#382dd0; /* צבע רקע */
+    color: white; /* צבע טקסט */
+    padding: 10px 20px; /* ריווח פנימי */
+    border: none; /* ללא מסגרת */
+    border-radius: 5px; /* פינות מעוגלות */
+    cursor: pointer; /* סמן יד */
+    font-size: 30px; /* גודל טקסט */
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+#StartButton:hover {
+    background-color: #000000;
+    transform: scale(1.5);
+}
+
+#TimeControl button {
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 25px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-bottom: 10px;
+}
+
+#AddTime {
+    background-color: #4CAF50;
+}
+
+#ReduceTime {
+    background-color: #f44336;
+}
+
+#AddTime:hover, #ReduceTime:hover {
+    transform: scale(1.2);
+}
+
+.Time {
+    font-size: 25px;
+}
+
+.Time::after {
+    content: " Seconds";
+    font-size: 25px;
+}
+
+#BestScore {
+    font-size: 25px;
+}

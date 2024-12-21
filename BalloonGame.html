@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Balloon Pop Game</title>
+        <link rel="stylesheet" href="BalloonGame.css">
+    </head>
+    <body>
+        <div id="game-container">
+            
+            <div id="MainScreen">
+                <h1>Balloon Pop</h1>
+                <button id="StartButton">Start Game</button>  
+                <div id="TimeControl">
+                    <button id="AddTime">Add 5s</button>
+                    <button id="ReduceTime">Reduce 5s</button>
+                </div>
+                <div class="Time">Time: 60</div>
+            </div>   
+
+            <div id="GameScreen" style="display: none;">
+                <div id="GameInfo">
+                    <div id="score">Score: 0</div>
+                    <div class="Time">Time: 60</div>
+                </div>
+                <div id="GameButton">
+                    <button id="QuitGame">Quit Game</button>
+                    <button id="RestartGame">Restart Game</button>
+                </div>
+            </div>
+            <div id="BestScore">Best Score: 0</div>
+        </div>
+        <script src="BalloonGame.js"></script>
+    </body>
+</html>
