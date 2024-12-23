@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const startButton = document.getElementById("StartButton");
     const gameScreen = document.getElementById("GameScreen");
     const mainScreen = document.getElementById("MainScreen");
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
 
     startButton.addEventListener("click", () => {
         // הסתרת מסך ראשי והצגת מסך משחק
@@ -15,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function startGame() {
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
         // משתנים בסיסיים למשחק
         let x = canvas.width / 2;
         let y = canvas.height - 30;

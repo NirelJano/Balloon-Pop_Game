@@ -8,20 +8,20 @@
 </head>
 <body>
     <div id="game-container">
-        <!-- מסך ראשי -->
+        <!-- Main Screen -->
         <div id="MainScreen">
             <h1>Balloon Pop</h1>
             <button id="StartButton">Start Game</button>
-            <div id="TimeControl">
-                <button id="AddTime">Add 5s</button>
-                <button id="ReduceTime">Reduce 5s</button>
+            <div id="GameLevel">
+                <button id="Easy">Easy</button>
+                <button id="Medium">Medium</button>
+                <button id="Hard">Hard</button>
             </div>
-            <div class="Time">Time: 60</div>
         </div>
 
-        <!-- מסך משחק -->
+        <!-- Game Screen -->
         <div id="GameScreen" style="display: none;">
-            <canvas id="gameCanvas" width="800" height="600" style="border: 1px solid black;"></canvas>
+            <canvas id="gameCanvas"></canvas>
         </div>
     </div>
     <script src="BalloonGame.js"></script>
