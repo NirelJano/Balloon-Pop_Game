@@ -5,9 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const easyButton = document.getElementById("Easy");
     const mediumButton = document.getElementById("Medium");
     const hardButton = document.getElementById("Hard");
-    
+    const timerElement = document.getElementById("Timer");
+    const restartButton = document.getElementById("RestartButton");
+    const quitButton = document.getElementById("QuitButton");
 
     let Level = "easy";
+    let gameInterval = null;
+    let remainingTime = 0;
 
     function selectedLevel(level) {
         Level = level;
@@ -42,6 +46,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         startGame(levelConfig.time, levelConfig.balloons);
+    });
+
+    restartButton.addEventListener("click", () => {
+        clearInterval(gameInterval);
+        startButton.click();
+    });
+
+    quitButton.addEventListener("click", () => {
+        clearInterval(gameInterval);
+        gameScreen.style.display = "none";
+        mainScreen.style.display = "block";
     });
 
     function getRandomColor() {
@@ -109,11 +124,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         gameLoop();
     
-        let remainingTime = time;
-        const timer = setInterval(() => {
+        remainingTime = time; 
+        timerElement.innerText = `Time: ${remainingTime}`;
+        gameInterval = setInterval(() => {
             remainingTime--;
+            timerElement.innerText = `Time: ${remainingTime}`;
             if (remainingTime <= 0) {
-                clearInterval(timer);
+                clearInterval(gameInterval);
                 alert("Game Over!");
             }
         }, 1000);
