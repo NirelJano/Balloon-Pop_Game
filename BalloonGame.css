@@ -20,9 +20,13 @@ body {
 
 #GameScreen {
     display: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: white; 
-    height: 100vh; 
-    padding: 20px;
+    z-index: 10;
 }
 
 h1 {
@@ -94,4 +98,44 @@ h1 {
 
 #Hard {
     background-color: #f44336;
+}
+
+#RestartButton {
+    background-color: #1e28f0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 30px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+#RestartButton:hover {
+    background-color: black;
+    transform: scale(1.5);
+}
+
+#QuitButton {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 30px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+#QuitButton:hover {
+    background-color: black;
+    transform: scale(1.5);
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 85%;
+    display: block; /* מבטיח שהקנבס תופס את כל המסך */
 }

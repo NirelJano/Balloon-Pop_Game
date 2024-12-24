@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
     easyButton.addEventListener("click", () => selectedLevel("easy"));
     mediumButton.addEventListener("click", () => selectedLevel("medium"));
     hardButton.addEventListener("click", () => selectedLevel("hard"));
@@ -38,13 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let levelConfig;
         if (Level === "easy") {
-            levelConfig = { time: 30, balloons: 100 };
+            levelConfig = {time: 30, balloons: 100};
         } else if (Level === "medium") {
-            levelConfig = { time: 45, balloons: 200 };
+            levelConfig = {time: 45, balloons: 200};
         } else {
-            levelConfig = { time: 60, balloons: 300 };
+            levelConfig = {time: 60, balloons: 300};
         }
-
         startGame(levelConfig.time, levelConfig.balloons);
     });
 
@@ -70,6 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startGame(time, balloons) {
         const canvas = document.getElementById("gameCanvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight * 0.9;
         const ctx = canvas.getContext("2d");
 
         const balloonsArray = [];
