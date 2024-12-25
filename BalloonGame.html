@@ -24,8 +24,16 @@
             <canvas id="gameCanvas"></canvas>
             <div id="Score">Score: 0</div>
             <div id="Timer">Time: 0</div>
-            <button id="RestartButton">Restart</button>
-            <button id="QuitButton">Quit</button>
+            <button class="RestartButton">Restart</button>
+            <button class="QuitButton">Quit</button>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="ResultScreen" style="display: none;">
+            <h1>Game Over</h1>
+            <div id="ResultScore">Final Score: 0</div>
+            <button class="RestartButton">Restart</button>
+            <button class="QuitButton">Quit</button>
         </div>
     </div>
     <script src="BalloonGame.js"></script>

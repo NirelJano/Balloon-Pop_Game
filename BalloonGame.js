@@ -1,19 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const startButton = document.getElementById("StartButton");
-    const gameScreen = document.getElementById("GameScreen");
     const mainScreen = document.getElementById("MainScreen");
+    const gameScreen = document.getElementById("GameScreen");
+    const resultScreen = document.getElementById("ResultScreen");
+
     const easyButton = document.getElementById("Easy");
     const mediumButton = document.getElementById("Medium");
     const hardButton = document.getElementById("Hard");
+
+    const startButton = document.getElementById("StartButton");
+    const restartButton = document.querySelectorAll(".RestartButton");
+    const quitButton = document.querySelectorAll(".QuitButton");
+
     const timerElement = document.getElementById("Timer");
-    const restartButton = document.getElementById("RestartButton");
-    const quitButton = document.getElementById("QuitButton");
+    const scoreElement = document.getElementById("Score");
+    const resultScore = document.getElementById("ResultScore");
 
     let Level = "easy";
     let gameInterval = null;
     let remainingTime = 0;
     let score = 0;
-    const scoreElement = document.getElementById("Score");
+    let highScore = {easy: 0, medium: 0, hard: 0};
+    let levelConfig = {time: 60, balloons: 200, speed:0.3};
 
     function selectedLevel(level) {
         Level = level;
@@ -37,27 +44,51 @@ document.addEventListener("DOMContentLoaded", () => {
         mainScreen.style.display = "none";
         gameScreen.style.display = "block";
 
-        let levelConfig;
         if (Level === "hard") {
-            levelConfig = {time: 30, balloons: 200,speed:1.6};
+            levelConfig = {time: 30, balloons: 200,speed:0.8};
         } else if (Level === "medium") {
-            levelConfig = {time: 45, balloons: 200,speed:1.2};
+            levelConfig = {time: 45, balloons: 200,speed:0.6};
         } else {
-            levelConfig = {time: 60, balloons: 200,speed:1};
+            levelConfig = {time: 60, balloons: 200,speed:0.3};
         }
         startGame(levelConfig.time, levelConfig.balloons,levelConfig.speed);
     });
 
-    restartButton.addEventListener("click", () => {
-        clearInterval(gameInterval);
-        startButton.click();
-    });
+    restartButton.forEach(button =>
+        button.addEventListener("click", () => {
+            clearInterval(gameInterval); 
+            remainingTime = levelConfig.time; 
+            timerElement.innerText = `Time: ${remainingTime}`; 
+            score = 0;
+            scoreElement.innerText = `Score: ${score}`;
+            resultScreen.style.display = "none"; 
+            gameScreen.style.display = "block";
+            startGame(levelConfig.time, levelConfig.balloons, levelConfig.speed);
+        })
+    );
+    
 
-    quitButton.addEventListener("click", () => {
-        clearInterval(gameInterval);
+    quitButton.forEach(button =>
+        button.addEventListener("click", () => {
+            clearInterval(gameInterval);
+            resultScreen.style.display = "none"; 
+            gameScreen.style.display = "none";
+            mainScreen.style.display = "block";
+            score = 0;
+            scoreElement.innerText = `Score: ${score}`;
+        })
+    );
+
+    function displayResults() { 
         gameScreen.style.display = "none";
-        mainScreen.style.display = "block";
-    });
+        resultScreen.style.display = "block";
+        const currentHighScore = highScore[Level];
+        if (score > currentHighScore) {
+            highScore[Level] = score;
+        }
+        resultScore.innerText = `Your Score: ${score}\nHigh Score (${Level}): ${highScore[Level]}`;
+    }
+
 
     function getRandomColor() {
         const letters = "0123456789ABCDEF";
@@ -68,53 +99,47 @@ document.addEventListener("DOMContentLoaded", () => {
         return color;
     }
 
-    function startGame(time, balloons,speed) {
+    function startGame(time, balloons, speed) {
         const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth ;
         canvas.height = window.innerHeight * 0.85;
-        const ctx = canvas.getContext("2d");
-        score = 0
 
         const balloonsArray = [];
+        score = 0
+        scoreElement.innerText = `Score: ${score}`;
+
         for (let i = 0; i < balloons; i++) {
             setTimeout(() => {
                 const x = Math.random() * canvas.width;
-                const y = canvas.height + Math.random() * 100; // מתחת למסך
+                const y = canvas.height + Math.random() * 100; 
                 const radius = 20 + Math.random() * 30;
                 const color = getRandomColor();
-                const speedY = -(canvas.height / 95) * speed; // מהירות אנכית תלויה ברמת הקושי
-                const speedX = (Math.random() - 0.5) * speed; // מהירות אופקית תלויה ברמת הקושי
+                const speedY = -(canvas.height / 95) * speed; 
+                const speedX = (Math.random() - 0.5) * speed; 
 
-        
-                balloonsArray.push({ x, y, radius, color, speedX, speedY, popped: false });
+                balloonsArray.push({x, y, radius, color, speedX, speedY, popped: false});
             }, i * 400); 
-        
-        
-            
         }
     
         function drawBalloons() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             balloonsArray.forEach((balloon) => {
                 if (!balloon.popped) {
-                    // עדכון מיקום הבלון
                     balloon.x += balloon.speedX;
                     balloon.y += balloon.speedY;
         
-                    // בדיקה אם הבלון יצא מגבולות המסך
                     if (balloon.y + balloon.radius < 0) {
                         balloon.y = canvas.height + balloon.radius;
                         balloon.x = Math.random() * canvas.width;
                     }
         
-                    // ציור הבלון
                     ctx.beginPath();
                     ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
                     ctx.fillStyle = balloon.color;
                     ctx.fill();
                     ctx.closePath();
         
-                    // ציור חוט הבלון
                     ctx.beginPath();
                     ctx.moveTo(balloon.x, balloon.y + balloon.radius);
                     ctx.lineTo(balloon.x, balloon.y + balloon.radius + 50);
@@ -124,25 +149,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }
-        
-    
     
         canvas.addEventListener("click", (event) => {
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
             
-
             balloonsArray.forEach((balloon) => {
-                const distance = Math.sqrt(
-                    (mouseX - balloon.x) ** 2 + (mouseY - balloon.y) ** 2
-                );
-                if (distance <= balloon.radius) {
-                    balloon.popped = true;
-                    score++;
-                    scoreElement.innerText = `Score: ${score}`;
-                    
-
+                if (!balloon.popped) {
+                    const distance = Math.sqrt(
+                        (mouseX - balloon.x) ** 2 + (mouseY - balloon.y) ** 2
+                    );
+                    if (distance <= balloon.radius) {
+                        balloon.popped = true;
+                        score++;
+                        scoreElement.innerText = `Score: ${score}`; 
+                    }
                 }
             });
         });
@@ -162,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
             timerElement.innerText = `Time: ${remainingTime}`;
             if (remainingTime <= 0) {
                 clearInterval(gameInterval);
-                alert("Game Over!");
+                displayResults();
             }
         }, 1000);
     }
