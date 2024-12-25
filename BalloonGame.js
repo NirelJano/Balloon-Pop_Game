@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let Level = "easy";
     let gameInterval = null;
     let remainingTime = 0;
+    let score = 0;
+    const scoreElement = document.getElementById("Score");
 
     function selectedLevel(level) {
         Level = level;
@@ -36,14 +38,14 @@ document.addEventListener("DOMContentLoaded", () => {
         gameScreen.style.display = "block";
 
         let levelConfig;
-        if (Level === "easy") {
-            levelConfig = {time: 30, balloons: 100};
+        if (Level === "hard") {
+            levelConfig = {time: 30, balloons: 200,speed:1.6};
         } else if (Level === "medium") {
-            levelConfig = {time: 45, balloons: 200};
+            levelConfig = {time: 45, balloons: 200,speed:1.2};
         } else {
-            levelConfig = {time: 60, balloons: 300};
+            levelConfig = {time: 60, balloons: 200,speed:1};
         }
-        startGame(levelConfig.time, levelConfig.balloons);
+        startGame(levelConfig.time, levelConfig.balloons,levelConfig.speed);
     });
 
     restartButton.addEventListener("click", () => {
@@ -66,11 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return color;
     }
 
-    function startGame(time, balloons) {
+    function startGame(time, balloons,speed) {
         const canvas = document.getElementById("gameCanvas");
         canvas.width = window.innerWidth ;
         canvas.height = window.innerHeight * 0.85;
         const ctx = canvas.getContext("2d");
+        score = 0
 
         const balloonsArray = [];
         for (let i = 0; i < balloons; i++) {
@@ -79,10 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const y = canvas.height + Math.random() * 100; // מתחת למסך
                 const radius = 20 + Math.random() * 30;
                 const color = getRandomColor();
-                const speedY = -Math.random() * 2;
+                const speedY = -(canvas.height / 95) * speed; // מהירות אנכית תלויה ברמת הקושי
+                const speedX = (Math.random() - 0.5) * speed; // מהירות אופקית תלויה ברמת הקושי
+
         
-                balloonsArray.push({ x, y, radius, color, speedX: 0, speedY, popped: false });
-            }, i * 400); // הפרש של 2 שניות בין כל בלון
+                balloonsArray.push({ x, y, radius, color, speedX, speedY, popped: false });
+            }, i * 400); 
         
         
             
@@ -126,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
+            
 
             balloonsArray.forEach((balloon) => {
                 const distance = Math.sqrt(
@@ -133,6 +139,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
                 if (distance <= balloon.radius) {
                     balloon.popped = true;
+                    score++;
+                    scoreElement.innerText = `Score: ${score}`;
+                    
+
                 }
             });
         });
@@ -146,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
         remainingTime = time; 
         timerElement.innerText = `Time: ${remainingTime}`;
+
         gameInterval = setInterval(() => {
             remainingTime--;
             timerElement.innerText = `Time: ${remainingTime}`;
