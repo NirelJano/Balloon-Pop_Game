@@ -6,17 +6,20 @@ html, body {
 }
 
 body {
-    background-image: url('https://media.canva.com/v2/image-resize/format:PNG/height:238/quality:100/uri:s3%3A%2F%2Fmedia-private.canva.com%2FHM0L0%2FMAGZ8_HM0L0%2F1%2Fp.png/watermark:F/width:550?csig=AAAAAAAAAAAAAAAAAAAAALDTLkUN80wWWoQmEUaEXE3lEQuKBtho9-GqLym1Czmm&exp=1734822948&osig=AAAAAAAAAAAAAAAAAAAAACvI3LKdp0Mzs-47sgyS2MIJv5a4lBHwOM8CBStxR6u-&signer=media-rpc&x-canva-quality=thumbnail_large');
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center; 
-    background-attachment: fixed; 
-    text-align: center;
+    height: 100%; 
+    overflow: hidden; 
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    text-align: center;
+    background: linear-gradient(to bottom, #87CEEB, #FFFFFF); /* מעבר צבעים שמים */
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-attachment: fixed; 
 }
+
 
 #GameScreen {
     display: none; 
@@ -25,7 +28,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: white; 
+    background-color: inear-gradient(to bottom, #87CEEB, #FFFFFF); /* מעבר צבעים שמיים */; 
     z-index: 10;
 }
 

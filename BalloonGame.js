@@ -68,29 +68,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startGame(time, balloons) {
         const canvas = document.getElementById("gameCanvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight * 0.9;
+        canvas.width = window.innerWidth ;
+        canvas.height = window.innerHeight * 0.85;
         const ctx = canvas.getContext("2d");
 
         const balloonsArray = [];
         for (let i = 0; i < balloons; i++) {
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height;
-            const radius = 20 + Math.random() * 30;
-            const color = getRandomColor();
-            balloonsArray.push({ x, y, radius, color, popped: false });
+            setTimeout(() => {
+                const x = Math.random() * canvas.width;
+                const y = canvas.height + Math.random() * 100; // מתחת למסך
+                const radius = 20 + Math.random() * 30;
+                const color = getRandomColor();
+                const speedY = -Math.random() * 2;
+        
+                balloonsArray.push({ x, y, radius, color, speedX: 0, speedY, popped: false });
+            }, i * 400); // הפרש של 2 שניות בין כל בלון
+        
+        
+            
         }
     
         function drawBalloons() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             balloonsArray.forEach((balloon) => {
                 if (!balloon.popped) {
+                    // עדכון מיקום הבלון
+                    balloon.x += balloon.speedX;
+                    balloon.y += balloon.speedY;
+        
+                    // בדיקה אם הבלון יצא מגבולות המסך
+                    if (balloon.y + balloon.radius < 0) {
+                        balloon.y = canvas.height + balloon.radius;
+                        balloon.x = Math.random() * canvas.width;
+                    }
+        
+                    // ציור הבלון
                     ctx.beginPath();
                     ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
                     ctx.fillStyle = balloon.color;
                     ctx.fill();
                     ctx.closePath();
-
+        
+                    // ציור חוט הבלון
                     ctx.beginPath();
                     ctx.moveTo(balloon.x, balloon.y + balloon.radius);
                     ctx.lineTo(balloon.x, balloon.y + balloon.radius + 50);
@@ -100,6 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }
+        
     
     
         canvas.addEventListener("click", (event) => {
