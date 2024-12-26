@@ -115,40 +115,77 @@ document.addEventListener("DOMContentLoaded", () => {
                 const y = canvas.height + Math.random() * 100; 
                 const radius = 20 + Math.random() * 30;
                 const color = getRandomColor();
-                const speedY = -(canvas.height / 95) * speed; 
+                const speedY = -(canvas.height / 110) * speed; 
                 const speedX = (Math.random() - 0.5) * speed; 
 
                 balloonsArray.push({x, y, radius, color, speedX, speedY, popped: false});
-            }, i * 400); 
+            }, i * 1400); 
         }
     
         function drawBalloons() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             balloonsArray.forEach((balloon) => {
                 if (!balloon.popped) {
+                    // תנועת בלונים
                     balloon.x += balloon.speedX;
                     balloon.y += balloon.speedY;
         
+                    // אם בלון יוצא מהמסך, מחזירים אותו למטה
                     if (balloon.y + balloon.radius < 0) {
                         balloon.y = canvas.height + balloon.radius;
                         balloon.x = Math.random() * canvas.width;
                     }
         
+                    // ציור בלון (עם מעבר צבעים)
+                    const gradient = ctx.createRadialGradient(
+                        balloon.x,
+                        balloon.y,
+                        balloon.radius * 0.5,
+                        balloon.x,
+                        balloon.y,
+                        balloon.radius
+                    );
+                    gradient.addColorStop(0, "white");
+                    gradient.addColorStop(1, balloon.color);
                     ctx.beginPath();
-                    ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = balloon.color;
+                    ctx.ellipse(
+                        balloon.x,
+                        balloon.y,
+                        balloon.radius * 0.8,
+                        balloon.radius,
+                        0,
+                        0,
+                        Math.PI * 2
+                    );
+                    ctx.fillStyle = gradient;
                     ctx.fill();
                     ctx.closePath();
         
+                    // חוט מתפתל
                     ctx.beginPath();
                     ctx.moveTo(balloon.x, balloon.y + balloon.radius);
-                    ctx.lineTo(balloon.x, balloon.y + balloon.radius + 50);
+                    ctx.bezierCurveTo(
+                        balloon.x - 10,
+                        balloon.y + balloon.radius + 20,
+                        balloon.x + 10,
+                        balloon.y + balloon.radius + 40,
+                        balloon.x,
+                        balloon.y + balloon.radius + 50
+                    );
                     ctx.strokeStyle = "black";
+                    ctx.lineWidth = 1;
                     ctx.stroke();
                     ctx.closePath();
+        
+                    // צל
+                    ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+                    ctx.shadowBlur = 10;
+                    ctx.shadowOffsetX = 5;
+                    ctx.shadowOffsetY = 5;
                 }
             });
         }
+        
     
         canvas.addEventListener("click", (event) => {
             const rect = canvas.getBoundingClientRect();
