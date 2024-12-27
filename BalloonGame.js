@@ -86,10 +86,10 @@ document.addEventListener("DOMContentLoaded", () => {
             resultScreen.style.display = "none"; 
             gameScreen.style.display = "block";
             startButton.click();
+            startButton.click();
         })
     );
     
-
     quitButton.forEach(button =>
         button.addEventListener("click", () => {
             clearInterval(gameInterval);
@@ -110,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         resultScore.innerText = `Your Score: ${score}\nHigh Score (${Level}): ${highScore[Level]}`;
     }
-
 
     function getRandomColor() {
         const letters = "0123456789ABCDEF";
@@ -148,13 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             balloonsArray.forEach((balloon) => {
                 if (!balloon.popped) {
-                    // תנועת בלונים
                     balloon.x += balloon.speedX;
                     balloon.y += balloon.speedY;
-        
-                    
-        
-                    // ציור בלון (עם מעבר צבעים)
+
                     const gradient = ctx.createRadialGradient(
                         balloon.x,
                         balloon.y,
@@ -179,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.fill();
                     ctx.closePath();
         
-                    // חוט מתפתל
                     ctx.beginPath();
                     ctx.moveTo(balloon.x, balloon.y + balloon.radius);
                     ctx.bezierCurveTo(
@@ -195,7 +189,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.stroke();
                     ctx.closePath();
         
-                    // צל
                     ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
                     ctx.shadowBlur = 10;
                     ctx.shadowOffsetX = 5;
@@ -203,7 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }
-        
     
         canvas.addEventListener("click", (event) => {
             const rect = canvas.getBoundingClientRect();
