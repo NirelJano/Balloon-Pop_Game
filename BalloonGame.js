@@ -130,11 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     balloon.x += balloon.speedX;
                     balloon.y += balloon.speedY;
         
-                    // אם בלון יוצא מהמסך, מחזירים אותו למטה
-                    if (balloon.y + balloon.radius < 0) {
-                        balloon.y = canvas.height + balloon.radius;
-                        balloon.x = Math.random() * canvas.width;
-                    }
+                    
         
                     // ציור בלון (עם מעבר צבעים)
                     const gradient = ctx.createRadialGradient(
