@@ -22,6 +22,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let highScore = {easy: 0, medium: 0, hard: 0};
     let levelConfig = {time: 60, balloons: 200, speed:0.3};
 
+    function showPopEffect(x, y) {
+        const popElement = document.createElement("div");
+        popElement.innerText = "POP! 💥";
+        popElement.style.position = "absolute";
+        popElement.style.left = `${x}px`;
+        popElement.style.top = `${y}px`;
+        popElement.style.fontSize = "30px";
+        popElement.style.fontWeight = "bold";
+        popElement.style.color = "red";
+        popElement.style.textShadow = "2px 2px 5px black";
+        popElement.style.transform = "translate(-50%, -50%)";
+        popElement.style.zIndex = "1000";
+        popElement.style.animation = "fadeOut 1s forwards";
+        document.body.appendChild(popElement);
+    
+        // הסר את האלמנט לאחר סיום האנימציה
+        setTimeout(() => {
+            document.body.removeChild(popElement);
+        }, 1000);
+    }
+    
+
     function selectedLevel(level) {
         Level = level;
         easyButton.classList.remove("selected");
@@ -197,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         balloon.popped = true;
                         score++;
                         scoreElement.innerText = `Score: ${score}`; 
+                        showPopEffect(balloon.x + rect.left, balloon.y + rect.top);
                     }
                 }
             });
