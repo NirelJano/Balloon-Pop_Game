@@ -174,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }
-        
     
         canvas.addEventListener("click", (event) => {
             const rect = canvas.getBoundingClientRect();
@@ -184,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
             balloonsArray.forEach((balloon) => {
                 if (!balloon.popped) {
                     const distance = Math.sqrt(
-                        (mouseX - balloon.x) * 2 + (mouseY - balloon.y) * 2
+                        (mouseX - balloon.x) ** 2 + (mouseY - balloon.y) ** 2
                     );
                     if (distance <= balloon.radius) {
                         balloon.popped = true;
