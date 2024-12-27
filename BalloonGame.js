@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
             resultScreen.style.display = "none"; 
             gameScreen.style.display = "block";
             startButton.click();
-            startButton.click();
+            
         })
     );
     
