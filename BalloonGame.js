@@ -63,11 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
             scoreElement.innerText = `Score: ${score}`;
             resultScreen.style.display = "none"; 
             gameScreen.style.display = "block";
-            startGame(levelConfig.time, levelConfig.balloons, levelConfig.speed);
+            startButton.click();
         })
     );
     
-
     quitButton.forEach(button =>
         button.addEventListener("click", () => {
             clearInterval(gameInterval);
@@ -88,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         resultScore.innerText = `Your Score: ${score}\nHigh Score (${Level}): ${highScore[Level]}`;
     }
-
 
     function getRandomColor() {
         const letters = "0123456789ABCDEF";
@@ -126,17 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             balloonsArray.forEach((balloon) => {
                 if (!balloon.popped) {
-                    // תנועת בלונים
                     balloon.x += balloon.speedX;
                     balloon.y += balloon.speedY;
         
-                    // אם בלון יוצא מהמסך, מחזירים אותו למטה
-                    if (balloon.y + balloon.radius < 0) {
-                        balloon.y = canvas.height + balloon.radius;
-                        balloon.x = Math.random() * canvas.width;
-                    }
-        
-                    // ציור בלון (עם מעבר צבעים)
                     const gradient = ctx.createRadialGradient(
                         balloon.x,
                         balloon.y,
@@ -161,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.fill();
                     ctx.closePath();
         
-                    // חוט מתפתל
                     ctx.beginPath();
                     ctx.moveTo(balloon.x, balloon.y + balloon.radius);
                     ctx.bezierCurveTo(
@@ -177,7 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.stroke();
                     ctx.closePath();
         
-                    // צל
                     ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
                     ctx.shadowBlur = 10;
                     ctx.shadowOffsetX = 5;
@@ -195,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
             balloonsArray.forEach((balloon) => {
                 if (!balloon.popped) {
                     const distance = Math.sqrt(
-                        (mouseX - balloon.x) ** 2 + (mouseY - balloon.y) ** 2
+                        (mouseX - balloon.x) * 2 + (mouseY - balloon.y) * 2
                     );
                     if (distance <= balloon.radius) {
                         balloon.popped = true;
