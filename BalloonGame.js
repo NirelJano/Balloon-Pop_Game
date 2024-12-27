@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
             resultScreen.style.display = "none"; 
             gameScreen.style.display = "block";
             startButton.click();
+            startButton.click();
         })
     );
     
@@ -126,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!balloon.popped) {
                     balloon.x += balloon.speedX;
                     balloon.y += balloon.speedY;
-        
+
                     const gradient = ctx.createRadialGradient(
                         balloon.x,
                         balloon.y,
