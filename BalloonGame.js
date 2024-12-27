@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
             scoreElement.innerText = `Score: ${score}`;
             resultScreen.style.display = "none"; 
             gameScreen.style.display = "block";
-            startGame(levelConfig.time, levelConfig.balloons, levelConfig.speed);
+            startButton.click();
         })
     );
     
