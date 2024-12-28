@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const speedX = (Math.random() - 0.5) * speed; 
 
                 balloonsArray.push({x, y, radius, color, speedX, speedY, popped: false});
-            }, i * 1400); 
+            }, i * 900); 
         }
     
         function drawBalloons() {
