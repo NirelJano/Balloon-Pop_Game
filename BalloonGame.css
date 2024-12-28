@@ -25,6 +25,20 @@ body {
     z-index: 10;
 }
 
+#Timer {
+    font-size: 1.5em;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.6); /* רקע כהה עם שקיפות */
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: white; /* צבע טקסט לבן */
+    width: 10%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* ממקם אותו במרכז האופקי */
+}
+
 
 #ExplodingTitle {
     color: #187dd6;
@@ -76,9 +90,9 @@ button:hover {
 
 #GameLevel {
     margin-top: 20px;
-    display: flex; /* שימוש בתצוגת פלקס */
-    justify-content: center; /* מרכז את הכפתורים */
-    gap: 15px; /* מרווח של 15 פיקסלים בין הכפתורים */
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
 }
 
 #GameLevel button.selected {
@@ -100,7 +114,7 @@ button:hover {
 
 .RestartButton, .QuitButton {
     background: linear-gradient(135deg, #36d1dc, #5b86e5);
-    margin-top: 20px;
+    margin-top: 70px;
 }
 
 #gameCanvas {
@@ -123,15 +137,42 @@ button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-#Instructions {
+#Instruction {
     margin: 20px auto;
     padding: 20px;
-    background: rgba(252, 8, 8, 0.3);
-    color: #000000;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
     font-size: 1.2em;
     font-weight: 600;
     text-align: left;
     border-radius: 10px;
-    width: 60%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 20%;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
+
+#ResultScreen {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 20%;
+}
+
+#ResultScreen h1 {
+    font-size: 2em;
+    color: #333;
+}
+
+#ResultScore {
+    font-size: 1.5em;
+    margin-top: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
