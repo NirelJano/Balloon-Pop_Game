@@ -1,3 +1,4 @@
+// Game variables, buttons, screens
 document.addEventListener("DOMContentLoaded", () => {
     const mainScreen = document.getElementById("MainScreen");
     const gameScreen = document.getElementById("GameScreen");
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = document.getElementById("ExplodingTitle");
     const instruction = document.getElementById("Instruction");
 
+    // Game variables
     let Level = "easy";
     let gameInterval = null;
     let remainingTime = 0;
@@ -25,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let highScore = {easy: 0, medium: 0, hard: 0};
     let levelConfig = {time: 60, balloons: 200, speed:0.3};
 
+    // Display pop effect when balloon is clicked
     function showPopEffect(x, y) {
         const popElement = document.createElement("div");
         popElement.innerText = "POP! 💥";
@@ -40,12 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
         popElement.style.animation = "fadeOut 1s forwards";
         document.body.appendChild(popElement);
     
-        // הסר את האלמנט לאחר סיום האנימציה
         setTimeout(() => {
             document.body.removeChild(popElement);
         }, 1000);
     }
     
+    // Choosing game level
     function selectedLevel(level) {
         Level = level;
         easyButton.classList.remove("selected");
@@ -60,10 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Event Listeners for game level buttons
     easyButton.addEventListener("click", () => selectedLevel("easy"));
     mediumButton.addEventListener("click", () => selectedLevel("medium"));
     hardButton.addEventListener("click", () => selectedLevel("hard"));
 
+    // Event Listeners for start button with selected level
     startButton.addEventListener("click", () => {
         title.style.display = "none";
         instruction.style.display = "none";
@@ -80,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
         startGame(levelConfig.time, levelConfig.balloons,levelConfig.speed);
     });
 
+    // Event Listeners for restart button will clear time
+    // and score and start the game again
     restartButton.forEach(button =>
         button.addEventListener("click", () => {
             clearInterval(gameInterval); 
@@ -90,10 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
             resultScreen.style.display = "none"; 
             gameScreen.style.display = "block";
             startButton.click();
-            
         })
     );
     
+    // Event Listeners for quit button will clear all elements
+    // and display main screen
     quitButton.forEach(button =>
         button.addEventListener("click", () => {
             clearInterval(gameInterval);
@@ -107,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     );
 
+    // Display results screen
     function displayResults() { 
         mainScreen.style.display = "none";
         gameScreen.style.display = "none";
@@ -118,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resultScore.innerText = `Your Score: ${score}\nHigh Score (${Level}): ${highScore[Level]}`;
     }
 
+    // Generate random color for balloons
     function getRandomColor() {
         const letters = "0123456789ABCDEF";
         let color = "#";
@@ -127,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return color;
     }
 
+    // Start the game with time, balloons and speed
     function startGame(time, balloons, speed) {
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
@@ -137,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         score = 0
         scoreElement.innerText = `Score: ${score}`;
 
+        // Generate balloon's size, color, speed and position
         for (let i = 0; i < balloons; i++) {
             setTimeout(() => {
                 const x = Math.random() * canvas.width;
@@ -147,9 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const speedX = (Math.random() - 0.5) * speed; 
 
                 balloonsArray.push({x, y, radius, color, speedX, speedY, popped: false});
-            }, i * 900); 
+            }, i * 700); 
         }
-    
+        
+        // Draw balloons on canvas
         function drawBalloons() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             balloonsArray.forEach((balloon) => {
@@ -204,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     
+        // Event listener for popping balloons
         canvas.addEventListener("click", (event) => {
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
@@ -224,16 +238,18 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
+        // Game loop to draw balloons
         function gameLoop() {
             drawBalloons();
             requestAnimationFrame(gameLoop);
         }
 
+        // Start the game loop
         gameLoop();
     
+        // Timer for the game
         remainingTime = time; 
         timerElement.innerText = `Time: ${remainingTime}`;
-
         gameInterval = setInterval(() => {
             remainingTime--;
             timerElement.innerText = `Time: ${remainingTime}`;
