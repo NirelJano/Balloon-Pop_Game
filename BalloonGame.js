@@ -6,14 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const easyButton = document.getElementById("Easy");
     const mediumButton = document.getElementById("Medium");
     const hardButton = document.getElementById("Hard");
-
+    
     const startButton = document.getElementById("StartButton");
     const restartButton = document.querySelectorAll(".RestartButton");
     const quitButton = document.querySelectorAll(".QuitButton");
-
+    
     const timerElement = document.getElementById("Timer");
     const scoreElement = document.getElementById("Score");
     const resultScore = document.getElementById("ResultScore");
+    
+    const title = document.getElementById("ExplodingTitle");
+    const instruction = document.getElementById("Instruction");
 
     let Level = "easy";
     let gameInterval = null;
@@ -43,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
     }
     
-
     function selectedLevel(level) {
         Level = level;
         easyButton.classList.remove("selected");
@@ -63,6 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
     hardButton.addEventListener("click", () => selectedLevel("hard"));
 
     startButton.addEventListener("click", () => {
+        title.style.display = "none";
+        instruction.style.display = "none";
         mainScreen.style.display = "none";
         gameScreen.style.display = "block";
 
@@ -96,12 +100,15 @@ document.addEventListener("DOMContentLoaded", () => {
             resultScreen.style.display = "none"; 
             gameScreen.style.display = "none";
             mainScreen.style.display = "block";
+            title.style.display = "block";
+            instruction.style.display = "block";   
             score = 0;
             scoreElement.innerText = `Score: ${score}`;
         })
     );
 
     function displayResults() { 
+        mainScreen.style.display = "none";
         gameScreen.style.display = "none";
         resultScreen.style.display = "block";
         const currentHighScore = highScore[Level];
@@ -123,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function startGame(time, balloons, speed) {
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth ;
+        canvas.width = window.innerWidth;
         canvas.height = window.innerHeight * 0.85;
 
         const balloonsArray = [];
